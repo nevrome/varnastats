@@ -12,7 +12,6 @@ vignettes/*.html
 vignettes/*.pdf
 .Rproj.user
 packrat/lib*/
-
 # check https://gist.github.com/octocat/9257657 #
 # Packages #
 ############
