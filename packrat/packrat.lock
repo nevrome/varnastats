@@ -1,0 +1,162 @@
+PackratFormat: 1.4
+PackratVersion: 0.4.3
+RVersion: 3.2.0
+Repos: CRAN=http://cran.rstudio.com
+
+Package: R6
+Source: CRAN
+Version: 2.0.1
+Hash: 9a3ac4e5fd8059af0fc5156bcb019bbc
+
+Package: RCurl
+Source: CRAN
+Version: 1.95-4.6
+Hash: a4d86df231587d1eae56f29c278bad0d
+Requires: bitops
+
+Package: Rcpp
+Source: CRAN
+Version: 0.11.6
+Hash: 004f4ffa4d0f4a3d177f2090799225e8
+
+Package: XML
+Source: CRAN
+Version: 3.98-1.2
+Hash: 2502c0cafb40790b0332d11cab9956e3
+
+Package: bitops
+Source: CRAN
+Version: 1.0-6
+Hash: cb26464a8321628636b547518994c931
+
+Package: brew
+Source: CRAN
+Version: 1.0-6
+Hash: 9d92cc5ac60123fdb7b0daa3ae83bf99
+
+Package: crayon
+Source: CRAN
+Version: 1.3.0
+Hash: e4d52f19ad1657e5bd5e48fb9be44a75
+Requires: memoise
+
+Package: devtools
+Source: CRAN
+Version: 1.8.0
+Hash: 16cd6c9d03ca192cb9c194759089cf6f
+Requires: RCurl, digest, evaluate, git2r, httr, jsonlite, memoise,
+    roxygen2, rstudioapi, rversions, whisker
+
+Package: digest
+Source: CRAN
+Version: 0.6.8
+Hash: 89dc4c8734dad5322bb3c5c2af09056f
+
+Package: evaluate
+Source: CRAN
+Version: 0.7
+Hash: 96c38894bf65a2e890f7c6ec840a6466
+Requires: stringr
+
+Package: formatR
+Source: CRAN
+Version: 1.2
+Hash: d518b2a342a62e0add8c07403859ff13
+
+Package: git2r
+Source: CRAN
+Version: 0.10.1
+Hash: 6454ce963e12973e157c55838740b1f1
+
+Package: highr
+Source: CRAN
+Version: 0.5
+Hash: d9f29aef93e6fd4f287cec2de07ca468
+
+Package: httr
+Source: CRAN
+Version: 0.6.1
+Hash: 3b082465d75a7a0c3d09ad06a0905aff
+Requires: R6, RCurl, digest, jsonlite, mime, stringr
+
+Package: jsonlite
+Source: CRAN
+Version: 0.9.16
+Hash: d96313db22c1ea2028538db1fc96fe5a
+
+Package: knitr
+Source: CRAN
+Version: 1.10.5
+Hash: e2d3a7715a4dfbe69940f054799ce95c
+Requires: digest, evaluate, formatR, highr, markdown, stringr, yaml
+
+Package: magrittr
+Source: CRAN
+Version: 1.5
+Hash: 38d492cf072bc9f3c73bda2aee3d0e23
+
+Package: markdown
+Source: CRAN
+Version: 0.7.7
+Hash: 3fdcd70d6d9a7067ffa051d143c48f4c
+Requires: mime
+
+Package: memoise
+Source: CRAN
+Version: 0.2.1
+Hash: fc52fa39dfd216c44d64812ff31b1c67
+Requires: digest
+
+Package: mime
+Source: CRAN
+Version: 0.3
+Hash: 843fd754c122f266d910a04642e0703d
+
+Package: packrat
+Source: CRAN
+Version: 0.4.3
+Hash: 16c72d5c802629fae5a4abca901e0199
+
+Package: roxygen2
+Source: CRAN
+Version: 4.1.1
+Hash: bf0325183fa7f6e9cdd9f82b8e6c50b4
+Requires: Rcpp, brew, digest, stringr
+
+Package: rstudioapi
+Source: CRAN
+Version: 0.3.1
+Hash: ee415a4fe305c6222630d8e5572781e7
+
+Package: rversions
+Source: CRAN
+Version: 1.0.0
+Hash: 9272cc99f9d1623e9717d262bfc2dfb8
+Requires: RCurl, XML
+
+Package: stringi
+Source: CRAN
+Version: 0.4-1
+Hash: 955e96fc5961bf9f7b3ca916f9b1e606
+
+Package: stringr
+Source: CRAN
+Version: 1.0.0
+Hash: 513045488dcf8019cc2f4305dc7d1f90
+Requires: magrittr, stringi
+
+Package: testthat
+Source: CRAN
+Version: 0.10.0
+Hash: c6c7e92f914e0775c8a33b1cf1046d8c
+Requires: crayon, digest
+
+Package: whisker
+Source: CRAN
+Version: 0.3-2
+Hash: 186ab2937fec1694c8a63009a2389c4e
+
+Package: yaml
+Source: CRAN
+Version: 2.1.13
+Hash: e5d041c001f6d641fd009c1f6ef7d831
