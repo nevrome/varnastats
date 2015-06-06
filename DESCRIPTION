@@ -1,9 +1,22 @@
 Package: varnastats
 Type: Package
-Title: What the Package Does (Title Case)
-Version: 0.1
+Title: R package to analyse some aspects of prehistoric burial sites
+Version: 0.0.0.9000
 Date: 2015-06-05
-Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
-Description: More about what it does (maybe more than one line)
-License: What license is it under?
+Authors@R: c(
+  person("Clemens", "Schmid", email = "clemens@nevrome.de", role = c("aut", "cre"))
+  )
+Description: Tools for bi- and multivariate analysis of matrizes in the context of 
+    archaeological research. Developed and used for the analysis of Varna Necropolis
+    (Bulgaria).
+License: file LICENSE
 LazyData: TRUE
+URL: https://github.com/nevrome/varnastats
+Imports: dplyr,
+    magrittr,
+    igraph,
+    corrplot,
+    MASS,
+    ca,
+    rapport,
+    reshape2
