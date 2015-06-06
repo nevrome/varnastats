@@ -1,6 +1,6 @@
 Package: varnastats
 Type: Package
-Title: R package to analyse some aspects of prehistoric burial sites
+Title: Analyse some aspects of prehistoric burial sites
 Version: 0.0.0.9000
 Date: 2015-06-05
 Authors@R: c(

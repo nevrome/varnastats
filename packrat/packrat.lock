@@ -64,6 +64,12 @@ Source: CRAN
 Version: 0.58
 Hash: 274c8de3a0bb02684a5a23ea2cd73659
 
+Package: caTools
+Source: CRAN
+Version: 1.17.1
+Hash: bb5fdc266f716b8a289a4f92007d53e3
+Requires: bitops
+
 Package: colorspace
 Source: CRAN
 Version: 1.2-6
@@ -134,6 +140,12 @@ Package: highr
 Source: CRAN
 Version: 0.5
 Hash: d9f29aef93e6fd4f287cec2de07ca468
+
+Package: htmltools
+Source: CRAN
+Version: 0.2.6
+Hash: 2c87108d130de261ac3c468d3316ae42
+Requires: digest
 
 Package: httr
 Source: CRAN
@@ -246,6 +258,12 @@ Source: CRAN
 Version: 1.0.1
 Hash: 25239d703474be3a13a730847c9801b2
 Requires: lazyeval, magrittr
+
+Package: rmarkdown
+Source: CRAN
+Version: 0.6.1
+Hash: 28aee1f631ae3ba9a2858e737f6db66b
+Requires: caTools, htmltools, knitr, yaml
 
 Package: roxygen2
 Source: CRAN
