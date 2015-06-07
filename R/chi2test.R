@@ -28,8 +28,6 @@
 #' chi2test(testmatrixrand, 2)
 #' chitabrows <- chi2test(matrix = testmatrixrand, dim = 2, chi2limit = 0.03)
 #' 
-#' @export
-#' 
 
 chi2test <- function (matrix, dim = 1, chi2limit = 0.05) {
   

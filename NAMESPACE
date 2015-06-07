@@ -2,6 +2,7 @@
 
 export(booleanize)
 export(chi2test)
+export(corrmat)
 export(lambdasym)
 export(phicoeff)
 export(simplecc)

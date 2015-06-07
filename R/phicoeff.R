@@ -26,8 +26,6 @@
 #' phicoeff(testmatrixrand, 2)
 #' phitabrows <- phicoeff(matrix = testmatrixrand, dim = 2)
 #' 
-#' @export
-#' 
 
 phicoeff <- function (matrix, dim = 1) {
   

@@ -27,8 +27,6 @@
 #' simplecc(testmatrixrand, 2)
 #' ccrows <- simplecc(matrix = testmatrixrand, dim = 2)
 #' 
-#' @export
-#' 
 
 simplecc <- function (matrix, dim=1) {
   

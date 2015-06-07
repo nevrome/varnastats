@@ -27,8 +27,6 @@
 #' lambdasym(testmatrixrand, 2)
 #' lambdarows <- lambdasym(matrix = testmatrixrand, dim = 2)
 #' 
-#' @export
-#' 
 
 lambdasym <- function (matrix, dim=1) {
   
