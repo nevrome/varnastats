@@ -24,6 +24,7 @@
 #' newcorrtable(testmatrix, 2)
 #' corrtabrows <- newcorrtable(matrix = testmatrix, dim = 2)
 #'
+
 newcorrtable <- function (matrix, dim = 1) {
   
   # table is created for column (variables) relations

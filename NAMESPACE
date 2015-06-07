@@ -2,3 +2,4 @@
 
 export(booleanize)
 export(chi2test)
+export(phicoeff)

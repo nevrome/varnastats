@@ -18,6 +18,7 @@
 #'
 #' @export
 #' 
+
 booleanize <- function(matrix, present=TRUE, absent=FALSE) {
   
   # loop to reach every cell of the matrix 

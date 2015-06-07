@@ -22,23 +22,25 @@
 #' # correlation table is created for the columns of the input data.frame testmatrixrand
 #' chi2test(testmatrixrand)
 #' chi2test(testmatrixrand, 1, 0.1)
-#' chitab <- chi2test(matrix = testmatrixrand, dim = 1, chi2limit = 0.1)
+#' chitabcolumns <- chi2test(matrix = testmatrixrand, dim = 1, chi2limit = 0.1)
 #'
 #' # correlation table is created for the rows of the input data.frame testmatrixrand    
 #' chi2test(testmatrixrand, 2)
-#' chitab <- chi2test(matrix = testmatrixrand, dim = 1, chi2limit = 0.03)
+#' chitabrows <- chi2test(matrix = testmatrixrand, dim = 2, chi2limit = 0.03)
 #' 
 #' @export
 #' 
+
 chi2test <- function (matrix, dim = 1, chi2limit = 0.05) {
   
+  # create empty correlation table for the input data.frame
   corrtab <- varnastats:::newcorrtable(matrix, dim)
   
   if (dim == 1) {
     # loop to compare every column with every other column
     for (z in 1:length(matrix)) { 
       for (s in 1:length(matrix)) {
-        # calculation of combination matrix for the current column-column relation
+        # calculation of a 2*2 contingency table for the current column-column relation
         tbl = table(matrix[,z], matrix[,s])
         # perform chi-square test for the current relation
         x <- chisq.test(tbl) 
