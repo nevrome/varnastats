@@ -2,4 +2,6 @@
 
 export(booleanize)
 export(chi2test)
+export(lambdasym)
 export(phicoeff)
+export(simplecc)
