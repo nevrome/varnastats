@@ -13,6 +13,9 @@
 #' delempty(testmatrix)
 #' 
 #' withoutempty <- delempty(matrix = testmatrix)
+#' 
+#' @export
+#' 
 
 delempty <- function(matrix) {
   
