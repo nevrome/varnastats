@@ -1,8 +1,15 @@
 #' Create a correlation matrix of an input data.frame
 #'
 #' \code{corrmat} returns a correlation matrix of a data.frame. Several different
-#' correlation values can be choosen and the matrix can be created for column or row 
+#' correlation methods can be choosen and the matrix can be created for column or row 
 #' relations. 
+#' 
+#' The rmnegniv option allows to remove "negativ relations", by activating
+#' the rmnegcorr function for values >0. The smaller rmnegniv the weaker the overlap 
+#' of two variables/objects can be, to still be recognised as the cause of a positiv 
+#' relation.
+#' 
+#' See \code{?rmnegcorr} for further info. This function can also be applied later. 
 #'
 #' @param matrix data.frame with numeric values
 #' @param method switch to define which contingency value should be used:
@@ -25,9 +32,12 @@
 #' 2: table is created for row (objects) relations.
 #' 
 #' @param chi2limit significance level for the test decision. Just relevant for method 
-#' "chi2". 
+#' "chi2". The higher chi2limit the less results will get removed.
 #' 
 #' default: 0.05 -> 5\% 
+#' 
+#' @param rmnegniv option allows to remove "negativ relations". If >0 \code{rmnegcorr} gets 
+#' called and applied. A usual value for rmnegniv is 0.1.
 #' 
 #' @return correlation matrix
 #' 
@@ -40,12 +50,24 @@
 #' 
 #' corrmat(matrix = testmatrixrand, method = "lambda", dim = 2)
 #' 
-#' phicorrtable <- corrmat(matrix = testmatrixrand, method = "phi", dim = 1)
+#' phicorrtable <- corrmat(
+#'  matrix = testmatrixrand, 
+#'  method = "phi", 
+#'  dim = 1
+#'  )
+#' 
+#' # Without negative relations:
+#' phicorrtablewnr <- corrmat(
+#'  matrix = testmatrixrand, 
+#'  method = "phi", 
+#'  dim = 1, 
+#'  rmnegniv = 0.1
+#'  )
 #' 
 #' @export
 #' 
 
-corrmat <- function (matrix, method = "chi2", dim = 1, chi2limit = 0.05) {
+corrmat <- function (matrix, method = "chi2", dim = 1, chi2limit = 0.05, rmnegniv = 0) {
   
   # create empty correlation table for the input data.frame
   corrtab <- varnastats:::newcorrtable(matrix, dim)
@@ -127,6 +149,16 @@ corrmat <- function (matrix, method = "chi2", dim = 1, chi2limit = 0.05) {
         
       } 
     }
+  }
+  
+  # apply removal of negativ relations with rmnegcorr
+  if (rmnegniv > 0) {
+    corrtab <- varnastats::rmnegcorr(
+      corrmatrix = corrtab, 
+      matrix = matrix, 
+      dim = dim, 
+      niv = rmnegniv
+      )
   }
   
   return(corrtab) 

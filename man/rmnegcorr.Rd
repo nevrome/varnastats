@@ -18,7 +18,8 @@ for columns or rows.
 
 2: table is created for row (objects) relations.}
 
-\item{niv}{decision niveau
+\item{niv}{decision niveau. The smaller niv the weaker the overlap of two
+variables/objects can be, to still be recognised as the cause for a positiv relation.
 
 default: 0.1 -> 10\%}
 }

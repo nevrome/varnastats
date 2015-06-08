@@ -15,7 +15,8 @@
 #' 
 #' 2: table is created for row (objects) relations.
 #' 
-#' @param niv decision niveau
+#' @param niv decision niveau. The smaller niv the weaker the overlap of two 
+#' variables/objects can be, to still be recognised as the cause for a positiv relation.
 #' 
 #' default: 0.1 -> 10\% 
 #' 

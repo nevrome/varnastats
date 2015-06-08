@@ -4,7 +4,8 @@
 \alias{corrmat}
 \title{Create a correlation matrix of an input data.frame}
 \usage{
-corrmat(matrix, method = "chi2", dim = 1, chi2limit = 0.05)
+corrmat(matrix, method = "chi2", dim = 1, chi2limit = 0.05,
+  rmnegniv = 0)
 }
 \arguments{
 \item{matrix}{data.frame with numeric values}
@@ -29,17 +30,28 @@ for columns or rows.
 2: table is created for row (objects) relations.}
 
 \item{chi2limit}{significance level for the test decision. Just relevant for method
-"chi2".
+"chi2". The higher chi2limit the less results will get removed.
 
 default: 0.05 -> 5\%}
+
+\item{rmnegniv}{option allows to remove "negativ relations". If >0 \code{rmnegcorr} gets
+called and applied. A usual value for rmnegniv is 0.1.}
 }
 \value{
 correlation matrix
 }
 \description{
 \code{corrmat} returns a correlation matrix of a data.frame. Several different
-correlation values can be choosen and the matrix can be created for column or row
+correlation methods can be choosen and the matrix can be created for column or row
 relations.
+}
+\details{
+The rmnegniv option allows to remove "negativ relations", by activating
+the rmnegcorr function for values >0. The smaller rmnegniv the weaker the overlap
+of two variables/objects can be, to still be recognised as the cause of a positiv
+relation.
+
+See \code{?rmnegcorr} for further info. This function can also be applied later.
 }
 \examples{
 testmatrixrand <- data.frame(
@@ -50,6 +62,18 @@ corrmat(testmatrixrand, "chi2", chi2limit = 0.03)
 
 corrmat(matrix = testmatrixrand, method = "lambda", dim = 2)
 
-phicorrtable <- corrmat(matrix = testmatrixrand, method = "phi", dim = 1)
+phicorrtable <- corrmat(
+ matrix = testmatrixrand,
+ method = "phi",
+ dim = 1
+ )
+
+# Without negative relations:
+phicorrtablewnr <- corrmat(
+ matrix = testmatrixrand,
+ method = "phi",
+ dim = 1,
+ rmnegniv = 0.1
+ )
 }
 
