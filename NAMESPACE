@@ -3,3 +3,4 @@
 export(booleanize)
 export(corrmat)
 export(delempty)
+export(rmnegcorr)
