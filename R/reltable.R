@@ -70,7 +70,7 @@ reltable <- function(corrtable) {
   }
   
   # remove autocorrelation
-  b <- filter(a, namevar1 != namevar2)
+  b <- dplyr::filter(a, namevar1 != namevar2)
   
   # remove every relation, that is already present inversely (var1 + var2 = var2 + var1)
   c <- b[which(duplicated(b[,6])),]
