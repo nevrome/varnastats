@@ -2,5 +2,6 @@
 
 export(booleanize)
 export(corrmat)
+export(corrplotmask)
 export(delempty)
 export(rmnegcorr)
