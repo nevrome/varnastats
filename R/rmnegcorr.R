@@ -22,7 +22,7 @@
 #' 
 #' @return correlation matrix without negative relations
 #' 
-#'@examples
+#' @examples
 #' testmatrixrand <- data.frame(
 #'    matrix(base::sample(0:1,400,replace=T), nrow=20, ncol=20)
 #' )
