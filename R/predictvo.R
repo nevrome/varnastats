@@ -8,18 +8,19 @@
 #' @param reltable table of correlation values (e.g. produced by \code{reltable()})
 #' @param mvars vector of variables of interest (full name)
 #' @return table with predicted, normalized relation values of every object and given
-#' variables of interest
+#' variables of interest. If no variable of interest has correlations to other variables,
+#' \code{predictvo()} returns FALSE.
 #' 
 #' @examples
 #' testmatrixrand <- data.frame(
 #'    matrix(base::sample(0:1,400,replace=T), nrow=20, ncol=20)
 #' )
 #'  
-#' testcorr <- corrmat(testmatrixrand, "lambda", chi2limit = 0.1, dim = 1)
+#' testcorr <- corrmat(testmatrixrand, "chi2", chi2limit = 0.1, dim = 1)
 #' 
 #' rel <- reltable(testcorr)
 #' 
-#' predictvo(testmatrixrand, rel, c("X1", "X2", "X3"))
+#' predictvo(testmatrixrand, rel, c("X2", "X3"))
 #' 
 #' @export
 #'
@@ -37,6 +38,12 @@ predictvo <- function (matrix, reltable, mvars) {
       namevar1 == mvar | namevar2 == mvar
     )
     
+    # if no variables are linked to the current variable of interest, the loop
+    # continues with the next variable
+    if (nrow(redtovar) == 0) {
+      next()
+    } 
+    
     # extract partner variables of the variable of interest (1. Level)
     withoutmvar <- c(
       redtovar[redtovar$namevar1 != mvar,]$namevar1, 
@@ -44,7 +51,7 @@ predictvo <- function (matrix, reltable, mvars) {
     )
     
    # extract partner variables of partner variables of interest (2. Level)
-    mvarnet <- filter(
+    mvarnet <- dplyr::filter(
       reltable, 
       namevar1 == withoutmvar[1] | 
         namevar2 == withoutmvar[1]
@@ -52,14 +59,16 @@ predictvo <- function (matrix, reltable, mvars) {
     for (i in 2:length(withoutmvar)) {
       mvarnet <- rbind(
         mvarnet, 
-        filter (
+        dplyr::filter (
           reltable, 
           namevar1 == withoutmvar[i] |
             namevar2 == withoutmvar[i]  
         )
       )
     }
-    mvarvec <- c(mvarnet$namevar1, mvarnet$namevar2)
+    
+    # create vector of partner variables (2. Level, 1. Level, Variable of Interest)
+    mvarvec <- c(mvarnet$namevar1, mvarnet$namevar2, withoutmvar, mvar)
     
     # remove multiple values to get a simple list of 2. Level partner variables
     mvarvec <- unique(mvarvec)
@@ -81,16 +90,28 @@ predictvo <- function (matrix, reltable, mvars) {
     
     # write overlap vector into a data.frame to collect the information for
     # every variable of information in one table
-    if (pointer == 1) {
-      relvaluetable <- data.frame(mvarrel)
+    if (!(exists("relvaluetable"))) {
+      relvaluetable <- data.frame(mvarrel, matrix[,mvar])
     } else {
-      relvaluetable <- data.frame(relvaluetable, mvarrel)
+      relvaluetable <- data.frame(relvaluetable, mvarrel, matrix[,mvar])
     }
     
   }
+  # If no variable of interest has correlations to other variables the function 
+  # returns FALSE.
+  if (!(exists("relvaluetable"))) {
+    return(FALSE)  
+  }
   
   # adjust colnames of resulting data.frame
-  colnames(relvaluetable) <- paste(mvars, "PREDICTION")
+  even <- seq(2, length(relvaluetable), 2)
+  odd <- seq(1, length(relvaluetable), 2)
+  suppressWarnings(
+  colnames(relvaluetable)[odd] <- paste(mvars, "PREDICTION")
+  )
+  suppressWarnings(
+  colnames(relvaluetable)[even] <- paste(mvars, "ACTUAL")
+  )
   
   return(relvaluetable)
   

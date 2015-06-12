@@ -15,7 +15,8 @@ predictvo(matrix, reltable, mvars)
 }
 \value{
 table with predicted, normalized relation values of every object and given
-variables of interest
+variables of interest. If no variable of interest has correlations to other variables,
+\code{predictvo()} returns FALSE.
 }
 \description{
 By comparison of significant correlations within variables and the variables the objects
@@ -27,10 +28,10 @@ testmatrixrand <- data.frame(
    matrix(base::sample(0:1,400,replace=T), nrow=20, ncol=20)
 )
 
-testcorr <- corrmat(testmatrixrand, "lambda", chi2limit = 0.1, dim = 1)
+testcorr <- corrmat(testmatrixrand, "chi2", chi2limit = 0.1, dim = 1)
 
 rel <- reltable(testcorr)
 
-predictvo(testmatrixrand, rel, c("X1", "X2", "X3"))
+predictvo(testmatrixrand, rel, c("X2", "X3"))
 }
 
