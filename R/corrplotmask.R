@@ -62,13 +62,28 @@ corrplotmask <- function(corrmatrix, xmatrix = "notact", mypath, voi=1:length(co
   # plotting in file
   png(file = mypath, width=w, height=h)
 
-  # decision: with or without crossmarking of certain values.
-  if (is.character(xmatrix)) {
-      corrplot::corrplot(corrmatrix[,voi], method = "color", cl.lim = c(0, 1), tl.col="black", tl.cex=2, col=col2(50))
-    } else {
-      corrplot::corrplot(corrmatrix[,voi], p.mat=xmatrix[,voi], method = "color", cl.lim = c(0, 1), tl.col="black", tl.cex=2, col=col2(50))  
-    }
-  
+    # decision: with or without crossmarking of certain values.
+    if (is.character(xmatrix)) {
+        corrplot::corrplot(
+          corrmatrix[,voi], 
+          method = "color", 
+          cl.lim = c(0, 1), 
+          tl.col = "black", 
+          tl.cex = 2, 
+          col = col2(50)
+          )
+      } else {
+        corrplot::corrplot(
+          corrmatrix[,voi], 
+          p.mat=xmatrix[,voi], 
+          method = "color", 
+          cl.lim = c(0, 1), 
+          tl.col = "black", 
+          tl.cex = 2, 
+          col=col2(50)
+          )  
+      }
+    
   dev.off()
   
 }
