@@ -35,7 +35,7 @@ testmatrixrand <- data.frame(
 
 linkage(testmatrixrand)
 
-link <- subset(linkage(testmatrixrand), type=="obj")
+link <- subset(linkage(testmatrixrand), type == "obj")
 barplot(link$linkage, names.arg = rownames(link))
 }
 
