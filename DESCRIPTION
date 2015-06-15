@@ -4,7 +4,9 @@ Title: Analyse some aspects of prehistoric burial sites
 Version: 0.0.0.9000
 Date: 2015-06-05
 Authors@R: c(
-  person("Clemens", "Schmid", email = "clemens@nevrome.de", role = c("aut", "cre"))
+  person("Clemens", "Schmid", email = "clemens@nevrome.de", role = c("aut", "cre")),
+  person("David", "Kirschenheuter", email = "david@kirschenheuter.de", role = c("aut")),
+  person("Jonas", "Abele", email = "jonas.abele@uni-tuebingen.de", role = c("aut"))
   )
 Description: Tools for bi- and multivariate analysis of matrizes in the context of 
     archaeological research. Developed and used for the analysis of Varna Necropolis
