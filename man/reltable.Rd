@@ -4,10 +4,12 @@
 \alias{reltable}
 \title{Convert a correlation matrix to a table of relations}
 \usage{
-reltable(corrtable)
+reltable(corrtable, corrtable2 = data.frame())
 }
 \arguments{
 \item{corrmatrix}{correlation matrix (as produced by varnastats::corrmat())}
+
+\item{optional}{second corrmatrix correlation matrix (as produced by varnastats::corrmat())}
 }
 \value{
 table of relations and their correlation value
@@ -18,7 +20,7 @@ Relations with a correlation value of zero and autocorrelations get removed.
 \code{reltable} can consume a lot of time for big datasets!
 }
 \details{
-Structure of the table:
+Structure of the resulting table:
 
 column 1 + 2:    indezes of the variables/objects in the correlation matrix
 
@@ -26,15 +28,17 @@ column 3:        correlation value
 
 column 4 + 5:    names of the variables/objects
 
-column 6:        bijektiv namehash of the relations
+column 6:        optional second correlation value
 }
 \examples{
 testmatrixrand <- data.frame(
    matrix(base::sample(0:1,400,replace=T), nrow=20, ncol=20)
 )
 
-testcorr <- corrmat(testmatrixrand, "lambda", chi2limit = 0.1, dim = 1)
+testcorr <- corrmat(testmatrixrand, "lambda", dim = 1)
+testcorr2 <- corrmat(testmatrixrand, "chi2", chi2limit = 0.1, dim = 1)
 
 reltable(testcorr)
+reltable(testcorr, testcorr2)
 }
 

@@ -5,7 +5,7 @@
 #' \code{reltable} can consume a lot of time for big datasets! 
 #' 
 #' @details 
-#' Structure of the table: 
+#' Structure of the resulting table: 
 #' 
 #' column 1 + 2:    indezes of the variables/objects in the correlation matrix
 #'
@@ -13,9 +13,10 @@
 #' 
 #' column 4 + 5:    names of the variables/objects
 #' 
-#' column 6:        bijektiv namehash of the relations
-#' 
+#' column 6:        optional second correlation value
+#'  
 #' @param corrmatrix correlation matrix (as produced by varnastats::corrmat())
+#' @param optional second corrmatrix correlation matrix (as produced by varnastats::corrmat())
 #' @return table of relations and their correlation value
 #' 
 #' @examples
@@ -23,33 +24,53 @@
 #'    matrix(base::sample(0:1,400,replace=T), nrow=20, ncol=20)
 #' )
 #'  
-#' testcorr <- corrmat(testmatrixrand, "lambda", chi2limit = 0.1, dim = 1)
+#' testcorr <- corrmat(testmatrixrand, "lambda", dim = 1)
+#' testcorr2 <- corrmat(testmatrixrand, "chi2", chi2limit = 0.1, dim = 1)
 #' 
 #' reltable(testcorr)
+#' reltable(testcorr, testcorr2)
 #' 
 #' @export
 #'
 
-reltable <- function(corrtable) {
+reltable <- function(corrtable, corrtable2 = data.frame()) {
   
   # copy matrix to apply an increasingly fast search algorithm for the matrix maximum
   destroycorr <- corrtable
   
   # Setup an empty data.frame as basis for the relation table
-  a <- matrix(
-    NA, 
-    nrow = length(corrtable[corrtable != 0]), 
-    ncol=6
+  if (nrow(corrtable2) == 0) {
+    a <- matrix(
+      NA, 
+      nrow = length(corrtable[corrtable != 0]), 
+      ncol=6
     )
-  a <- data.frame(a)
-  colnames(a) <- c(
-    "indexvar1", 
-    "indexvar2", 
-    "corrvalue", 
-    "namevar1", 
-    "namevar2", 
-    "namehash"
+    a <- data.frame(a)
+    colnames(a) <- c(
+      "indexvar1", 
+      "indexvar2", 
+      "corrvalue", 
+      "namevar1", 
+      "namevar2", 
+      "namehash"
+    ) 
+  } else {
+    a <- matrix(
+      NA, 
+      nrow = length(corrtable[corrtable != 0]), 
+      ncol=7
     )
+    a <- data.frame(a)
+    colnames(a) <- c(
+      "indexvar1", 
+      "indexvar2", 
+      "corrvalue", 
+      "namevar1", 
+      "namevar2", 
+      "namehash",
+      "corrvalue2"
+    ) 
+  }
   
   # loop to fill relationship table (in order of decreasing correlation values)
   for (i in 1:length(a[,1])) {
@@ -64,6 +85,9 @@ reltable <- function(corrtable) {
       namehashvector <- as.numeric(charToRaw(a[i,4])) + as.numeric(charToRaw(a[i,5]))
       )
       a[i,6] <- paste(namehashvector,collapse="")
+      if (nrow(corrtable2) != 0) {
+        a[i,7] <- corrtable2[a[i,1],a[i,2]]
+      }
       # set current relation to 0, to find the next best relation in the next loop run
       destroycorr[a[i,1],a[i,2]] <- 0
     }
@@ -77,5 +101,9 @@ reltable <- function(corrtable) {
   
   row.names(c) <- 1:length(c[,1])
   
-  return(c)
+  #remove namehash
+  
+  d <- c[,-6]
+  
+  return(d)
 }
