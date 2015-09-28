@@ -5,6 +5,16 @@ testmatrix <- data.frame(c1 = c(0,2,0,8), c2 = c(5,6,7,0), c3 = c(5,6,7,0))
 rownames(testmatrix) <- c("r1", "r2", "r3", "r4")
 
 test_that(
+  "the output of booleanize is a data.frame", 
+  {
+    expect_equal(
+      is.data.frame(booleanize(testmatrix)), 
+      TRUE
+    )
+  }
+)
+
+test_that(
   "the output of booleanize is a data.frame with the same size as the input data.frame", 
   {
   expect_equal(
