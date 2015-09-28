@@ -11,16 +11,18 @@ newcorrtable(matrix, dim = 1)
 
 \item{dim}{switch to define, whether the new correlation matrix should be created
 for columns or rows.
+
 1 (default): table is created for column (variables) relations.
+
 2: table is created for row (objects) relations.}
 }
 \value{
-empty correlation matrix
+empty correlation matrix data.frame
 }
 \description{
 \code{newcorrtable} returns an empty correlation matrix of a data.frames columns
 or rows. Empty means: filled with the numeric value "0".
-This correlation matrix can be used to store the results of functions which
+This correlation matrix data.frame can be used to store the results of functions which
 calculate correlation values for all bivariate relations.
 }
 \examples{

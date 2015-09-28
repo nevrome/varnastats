@@ -2,15 +2,18 @@
 #'
 #' \code{newcorrtable} returns an empty correlation matrix of a data.frames columns
 #' or rows. Empty means: filled with the numeric value "0". 
-#' This correlation matrix can be used to store the results of functions which 
+#' This correlation matrix data.frame can be used to store the results of functions which 
 #' calculate correlation values for all bivariate relations. 
 #'
 #' @param matrix data.frame 
 #' @param dim switch to define, whether the new correlation matrix should be created 
 #' for columns or rows. 
+#' 
 #' 1 (default): table is created for column (variables) relations.
+#' 
 #' 2: table is created for row (objects) relations.
-#' @return empty correlation matrix
+#' 
+#' @return empty correlation matrix data.frame
 #'
 #' @examples
 #' testmatrix <- data.frame(c1 = c(5,2,3,8), c2 = c(5,6,7,0), c3 = c(5,6,7,9))
@@ -44,6 +47,8 @@ newcorrtable <- function (matrix, dim = 1) {
     colnames(newtable) <- rownames(matrix) 
     rownames(newtable) <- rownames(matrix) 
   }
+  
+  newtable <- data.frame(newtable, check.names = FALSE)
   
   return(newtable)
   
