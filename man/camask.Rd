@@ -4,7 +4,7 @@
 \alias{camask}
 \title{Mask function for ca:ca() to get the ca results in a tidy data.frame}
 \usage{
-camask(matrix, supc = c(), supr = c(), caplot = TRUE)
+camask(matrix, supc = c(), supr = c(), caplot = FALSE)
 }
 \arguments{
 \item{matrix}{data.frame with numeric values}
@@ -22,7 +22,7 @@ default = c()}
 \item{caplot}{boolean switch, to decide, whether caplot() should be called to get
 some early plots
 
-default = TRUE}
+default = FALSE}
 }
 \value{
 data.frame with ca coordinates of variables and objects of the input data.frame

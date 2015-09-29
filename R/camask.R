@@ -26,7 +26,7 @@
 #' @param caplot boolean switch, to decide, whether caplot() should be called to get 
 #' some early plots
 #' 
-#' default = TRUE
+#' default = FALSE
 #' 
 #' @return data.frame with ca coordinates of variables and objects of the input data.frame
 #' 
@@ -41,7 +41,7 @@
 #' @export
 #'
 
-camask <- function(matrix, supc = c(), supr = c(), caplot = TRUE) {
+camask <- function(matrix, supc = c(), supr = c(), caplot = FALSE) {
 
   # call ca::ca() to perform CA
   # switch ist necessary to deal with presence or absence of passive variables:
