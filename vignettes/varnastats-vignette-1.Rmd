@@ -1,0 +1,17 @@
+---
+title: "Variable contingency and affiliation prediction"
+author: "Clemens Schmid"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Variable contingency and affiliation prediction}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+This Vignette shows a workflow for archaeologists workig on burial sites. Starting point is a table with burials (objects) and their classified attributes (grave goods, orientation, size, sex etc.). An example dataset with 50 fictional burials and 18 stereotypical attributes is provided in `data/bs1`. Here's an extract of bs1:  
+
+```{r, echo=FALSE, results='asis'}
+load("../data/bs1.rda")
+knitr::kable(bs1[1:10,1:9], row.names = TRUE)
+```

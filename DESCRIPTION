@@ -22,4 +22,6 @@ Imports: dplyr (>= 0.4.1),
     ca (>= 0.58),
     rapport (>= 0.4.1),
     reshape2 (>= 1.4.1)
-Suggests: testthat
+Suggests: testthat,
+    knitr
+VignetteBuilder: knitr
