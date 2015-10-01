@@ -9,9 +9,106 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+```{r, echo=FALSE, message=FALSE}
+devtools::load_all()
+library(reshape2)
+library(ggplot2)
+library(corrplot)
+library(dplyr)
+library(igraph)
+```
+
 This Vignette shows a workflow for archaeologists workig on burial sites. Starting point is a table with burials (objects) and their classified attributes (grave goods, orientation, size, sex etc.). An example dataset with 50 fictional burials and 18 stereotypical attributes is provided in `data/bs1`. Here's an extract of bs1:  
 
-```{r, echo=FALSE, results='asis'}
+
+
+```{r, echo=FALSE}
 load("../data/bs1.rda")
-knitr::kable(bs1[1:10,1:9], row.names = TRUE)
+bs1[1:10,9:16]
+```
+
+Booleanize
+
+```{r, echo=FALSE, echo=TRUE}
+bs <- varnastats::delempty(bs1)
+bs <- varnastats::booleanize(bs)
+bs[1:10,9:16]
+```
+
+Presencecount
+
+```{r, echo=TRUE, message=FALSE, fig.width=7.5, fig.height=5}
+presencematerial <- varnastats::presencecount(bs[,7:18], dim = 1)
+presence.m <- reshape2::melt(presencematerial)
+ggplot(presence.m,
+       aes(x = variable,
+           y = value)) +
+  geom_bar(stat = "identity")
+```
+
+delrc
+
+```{r, echo=TRUE, message=FALSE, fig.width=7.5, fig.height=5}
+bsred <- bs[,7:18]
+bsred <- varnastats::delrc(bsred, climit = 5)
+
+presencematerial <- varnastats::presencecount(bsred, dim = 1)
+presence.m <- reshape2::melt(presencematerial)
+ggplot(presence.m,
+       aes(x = variable,
+           y = value)) +
+  geom_bar(stat = "identity")
+```
+
+Contingency table
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+bsprep <- data.frame(bs[,1:6], bsred)
+corrtablechi2test <- varnastats::corrmat(bsprep, method = "chi2", dim = 1, chi2limit = 0.05)
+corrtablephi <- varnastats::corrmat(bsprep, method = "phi", dim = 1)
+mastercorr <- varnastats::rmnegcorr(corrtablephi, bsprep, niv = 0.1, dim = 1)
+
+col2 <- colorRampPalette(c("white","white", "chartreuse4"))
+# corrplot::corrplot(
+#   mastercorr,
+#   method = "color"
+#   )
+```
+
+Reltable
+
+```{r, echo=TRUE, message=FALSE, fig.width=7.5, fig.height=5, warning=FALSE}
+signicorr <- varnastats::reltable(mastercorr, corrtablechi2test)
+signicorr <- filter(signicorr, corrvalue2 == TRUE)
+
+signicorrmod <- data.frame(from = signicorr[,1], to = signicorr[,3], weight = signicorr[,2])
+graphbasis <- graph.data.frame(signicorrmod, directed = TRUE)
+graphbasissim <- simplify(graphbasis)
+plot.igraph(graphbasissim)
+```
+
+Prediction
+
+```{r, echo=TRUE, message=FALSE, fig.width=7.5, fig.height=5, warning=FALSE}
+mvar <- c("sex_male", "sex_female")
+ass <- varnastats::predictvo(bsprep, signicorr, mvar)
+
+u <- data.frame(
+  m = ass[,1], 
+  w = ass[,3],
+  statsex = NA,
+  mtat = bsprep$sex_male, 
+  wtat = bsprep$sex_female,
+  names = make.names(rownames(bsprep))
+  )
+
+for (i in 1:length(u[,1])){
+  if (u$m[i] >= 1.5*u$w[i]){
+    u$statsex[i] <- "m"
+  } else if (u$w[i] >= 1.5*u$m[i]) {
+    u$statsex[i] <- "w"
+  } else {
+    u$statsex[i] <- "unklar"
+  }
+}
 ```
