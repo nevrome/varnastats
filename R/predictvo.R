@@ -7,6 +7,15 @@
 #' @param matrix data.frame with numeric values
 #' @param reltable table of correlation values (e.g. produced by \code{reltable()})
 #' @param mvars vector of variables of interest (full name)
+#' @param levels switch to define if the prediction should be based on level 1 
+#' or on level 1 + level 2 variables. A level 1 variable is directly linked to a variable 
+#' of interest, a level 2 variable is linked to the level 1 variables of said variable of 
+#' interest
+#' 
+#' 1: prediction is based only on level 1 variables.
+#' 
+#' 2 (default): prediction is based on level 1 + level 2 variables. 
+#' 
 #' @return table with predicted, normalized relation values of every object and given
 #' variables of interest. If no variable of interest has correlations to other variables,
 #' \code{predictvo()} returns FALSE.
@@ -25,7 +34,7 @@
 #' @export
 #'
 
-predictvo <- function (matrix, reltable, mvars) {
+predictvo <- function (matrix, reltable, mvars, level = 2) {
   
   # loop: check relations of every variable of interest
   for (pointer in 1:length(mvars)){
@@ -67,10 +76,14 @@ predictvo <- function (matrix, reltable, mvars) {
       )
     }
     
-    # create vector of partner variables (2. Level, 1. Level, Variable of Interest)
-    mvarvec <- c(mvarnet$namevar1, mvarnet$namevar2, withoutmvar, mvar)
+    # create vector of partner variables (2. Level or 1. Level + Variable of Interest)
+    if (level == 1) {
+      mvarvec <- c(withoutmvar, mvar)
+    } else if (level == 2) {
+      mvarvec <- c(mvarnet$namevar1, mvarnet$namevar2, withoutmvar, mvar)
+    }
     
-    # remove multiple values to get a simple list of 2. Level partner variables
+    # remove multiple values to get a simple list of partner variables
     mvarvec <- unique(mvarvec)
     
     mvarrel <- c()

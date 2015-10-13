@@ -4,7 +4,7 @@
 \alias{predictvo}
 \title{Predict the relation of objects to a list of variables of interest}
 \usage{
-predictvo(matrix, reltable, mvars)
+predictvo(matrix, reltable, mvars, level = 2)
 }
 \arguments{
 \item{matrix}{data.frame with numeric values}
@@ -12,6 +12,15 @@ predictvo(matrix, reltable, mvars)
 \item{reltable}{table of correlation values (e.g. produced by \code{reltable()})}
 
 \item{mvars}{vector of variables of interest (full name)}
+
+\item{levels}{switch to define if the prediction should be based on level 1
+or on level 1 + level 2 variables. A level 1 variable is directly linked to a variable
+of interest, a level 2 variable is linked to the level 1 variables of said variable of
+interest
+
+1: prediction is based only on level 1 variables.
+
+2 (default): prediction is based on level 1 + level 2 variables.}
 }
 \value{
 table with predicted, normalized relation values of every object and given
