@@ -23,4 +23,5 @@
 #'   \item fibula_1: fibula type 1 (1--10)
 #'   \item fibula_2: fibula type 2 (1--10)
 #' }
-"bs1"
+#' @name bs1
+NULL

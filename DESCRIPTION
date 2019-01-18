@@ -14,14 +14,23 @@ Description: Tools for bi- and multivariate analysis of matrizes in the context 
 License: file LICENSE
 LazyData: TRUE
 URL: https://github.com/nevrome/varnastats
-Imports: dplyr (>= 0.4.1),
+Depends: R (>= 3.0.0)
+Imports: 
+    dplyr (>= 0.4.1),
     magrittr (>= 1.5), 
     igraph (>= 0.7.1),
     corrplot (>= 0.73),
     MASS (>= 7.3.0),
-    ca (>= 0.58),
     rapport (>= 0.4.1),
-    reshape2 (>= 1.4.1)
-Suggests: testthat,
+    rapportools,
+    reshape2 (>= 1.4.1),
+    quantAAR
+Suggests: 
+    devtools,
+    ca,
+    ggplot2,
+    testthat,
     knitr
 VignetteBuilder: knitr
+RoxygenNote: 6.1.1
+Encoding: UTF-8

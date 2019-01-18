@@ -22,15 +22,14 @@ library(ca)
 This Vignette shows a workflow for archaeologists workig on burial sites. Starting point is a data.frame with burials (objects) and their classified attributes (grave goods, orientation, size, sex etc.). An example dataset with 50 fictional burials and 18 stereotypical attributes is provided in `data/bs1`. Here's an extract of bs1:  
 
 ```{r, echo=FALSE}
-load("../data/bs1.rda")
 bs1[1:10,9:16]
 ```
 
-For bivariate analysis it's useful to use categorized data. In the context of burialsites the simple information wether a grave good is present or absent in a certain grave is often already sufficient. To reduce our dataset to this information the function `booleanize()` can be applied. Empty graves and attributes that never appeare can be removed with `delempty()`. 
+For bivariate analysis it's useful to use categorized data. In the context of burialsites the simple information wether a grave good is present or absent in a certain grave is often already sufficient. To reduce our dataset to this information the function `booleanize()` can be applied. Empty graves and attributes that never appeare can be removed with `itremove(x,1)`. 
 
 ```{r, echo=FALSE, echo=TRUE}
-bs <- varnastats::booleanize(bs1)
-bs <- varnastats::delempty(bs)
+bs <- quantAAR::booleanize(bs1)
+bs <- quantAAR::itremove(bs,1)
 bs[1:10,9:16]
 ```
 
@@ -46,11 +45,11 @@ ggplot(presence.m,
   geom_bar(stat = "identity")
 ```
 
-With `delrc()` we can delete every grave good that appeares less than ten times. As a consequence *pottery_4* is removed.
+With `itremove()` we can delete every grave good that appeares less than ten times. As a consequence *pottery_4* is removed.
 
 ```{r, echo=TRUE, message=FALSE, fig.width=7.5, fig.height=5}
 bsred <- bs[,7:18]
-bsred <- varnastats::delrc(bsred, climit = 10)
+bsred <- quantAAR::itremove(bsred, cmin = 10, rmin = 0)
 
 presencematerial <- varnastats::presencecount(bsred, dim = 1)
 presence.m <- reshape2::melt(presencematerial)
@@ -68,7 +67,7 @@ corrtablechi2test <- varnastats::corrmat(bsprep, method = "chi2", dim = 1, chi2l
 corrtablephi <- varnastats::corrmat(bsprep, method = "phi", dim = 1)
 mastercorr <- varnastats::rmnegcorr(corrtablephi, bsprep, niv = 0.1, dim = 1)
 
-col2 <- colorRampPalette(c("white","white", "chartreuse4"))
+col2 <- grDevices::colorRampPalette(c("white","white", "chartreuse4"))
 corrplot::corrplot(
   t(mastercorr),
   method = c("color")   
@@ -79,7 +78,7 @@ corrplot::corrplot(
 
 ```{r, echo=TRUE, message=FALSE, fig.width=7.5, fig.height=5, warning=FALSE}
 signicorr <- varnastats::reltable(mastercorr, corrtablechi2test)
-signicorr <- filter(signicorr, corrvalue2 == TRUE)
+signicorr <- dplyr::filter(signicorr, corrvalue2 == TRUE)
 
 signicorr
 ```
@@ -93,7 +92,7 @@ signicorrmod <- data.frame(
   weight = signicorr$corrvalue)
 
 graphbasis <- igraph::graph.data.frame(signicorrmod, directed = TRUE)
-plot.igraph(graphbasis)
+igraph::plot.igraph(graphbasis)
 ```
 
 Within *signicorr* it's easy to search for the directly to an individual attribute linked attributes (level 1 relations).
